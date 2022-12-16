@@ -1,11 +1,11 @@
 package ronit.springframework.springSwebapp.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
-    @Entity
+import java.util.HashSet;
+import java.util.Set;
+
+@Entity
     public class Publisher {
 
         @Id
@@ -18,10 +18,22 @@ import jakarta.persistence.Id;
         private String state;
         private String zip;
 
+        @OneToMany
+        @JoinColumn(name = "publisher_id")
+        private Set<Book> Books = new HashSet<>();
+
         public Publisher() {
         }
 
-        @Override
+    public Set<Book> getBooks() {
+        return Books;
+    }
+
+    public void setBooks(Set<Book> books) {
+        Books = books;
+    }
+
+    @Override
         public String toString() {
             return "Publisher{" +
                     "id=" + id +
